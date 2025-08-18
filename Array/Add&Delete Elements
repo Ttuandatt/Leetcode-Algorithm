@@ -1,0 +1,143 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Test {
+    // ====== Các method đã viết ======
+    public static int[] addElement(int[] a, int element) {
+        int n = a.length;
+        int[] newArr = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            newArr[i] = a[i];
+        }
+        newArr[n] = element;
+        return newArr;
+    }
+
+    public static int[] addElementByIndex(int[] a, int index, int element) {
+        int n = a.length;
+        if (index < 0 || index > n) {
+            System.out.println("Invalid index!");
+            return a;
+        }
+        int[] newArr = new int[n + 1];
+        for (int i = 0; i < index; i++) {
+            newArr[i] = a[i];
+        }
+        newArr[index] = element;
+        for (int i = index; i < n; i++) {
+            newArr[i + 1] = a[i];
+        }
+        return newArr;
+    }
+
+    public static int[] deleteElement(int[] a) {
+        int n = a.length;
+        if (n == 0) {
+            System.out.println("Array is empty!");
+            return a;
+        }
+        int[] newArr = new int[n - 1];
+        for (int i = 0; i < n - 1; i++) {
+            newArr[i] = a[i];
+        }
+        return newArr;
+    }
+
+    public static int[] deleteElementByIndex(int[] a, int index) {
+        int n = a.length;
+        if (index < 0 || index >= n) {
+            System.out.println("Invalid index!");
+            return a;
+        }
+        int[] newArr = new int[n - 1];
+        for (int i = 0; i < index; i++) {
+            newArr[i] = a[i];
+        }
+        for (int i = index + 1; i < n; i++) {
+            newArr[i - 1] = a[i];
+        }
+        return newArr;
+    }
+
+    public static void swapElement(int[] a, int u, int v) {
+        int n = a.length;
+        if (u < 0 || u >= n || v < 0 || v >= n) {
+            System.out.println("Invalid index to swap!");
+            return;
+        }
+        int temp = a[u];
+        a[u] = a[v];
+        a[v] = temp;
+    }
+
+    // ====== MAIN ======
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // nhập n và mảng ban đầu
+        System.out.print("Input n: ");
+        int n = sc.nextInt();
+        int[] a = new int[n];
+        System.out.println("Enter " + n + " elements:");
+        for (int i = 0; i < n; i++) {
+            a[i] = sc.nextInt();
+        }
+
+        // menu lặp
+        while (true) {
+            System.out.println("\n===== MENU =====");
+            System.out.println("1. Add element at end");
+            System.out.println("2. Add element at index");
+            System.out.println("3. Delete element at end");
+            System.out.println("4. Delete element at index");
+            System.out.println("5. Swap 2 elements");
+            System.out.println("0. Exit");
+            System.out.print("Choose: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter element to add at end: ");
+                    int ele = sc.nextInt();
+                    a = addElement(a, ele);
+                    break;
+
+                case 2:
+                    System.out.print("Enter index: ");
+                    int idx = sc.nextInt();
+                    System.out.print("Enter element: ");
+                    int ele2 = sc.nextInt();
+                    a = addElementByIndex(a, idx, ele2);
+                    break;
+
+                case 3:
+                    a = deleteElement(a);
+                    break;
+
+                case 4:
+                    System.out.print("Enter index to delete: ");
+                    int idxDel = sc.nextInt();
+                    a = deleteElementByIndex(a, idxDel);
+                    break;
+
+                case 5:
+                    System.out.print("Enter index u: ");
+                    int u = sc.nextInt();
+                    System.out.print("Enter index v: ");
+                    int v = sc.nextInt();
+                    swapElement(a, u, v);
+                    break;
+
+                case 0:
+                    System.out.println("Exit program.");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice!");
+            }
+
+            // In mảng sau mỗi thao tác
+            System.out.println("Current array: " + Arrays.toString(a));
+        }
+    }
+}
