@@ -1,0 +1,21 @@
+class Solution {
+    public int removeElement(int[] nums, int val) {
+        int k=0;
+        int n = nums.length;
+        int[] newNums = new int[n];
+        int newNumsIndex=0;
+        for(int i=0; i<n;i++){
+            if(nums[i]!=val){
+                k++;
+                newNums[newNumsIndex] = nums[i];
+                newNumsIndex++;
+            }
+        }
+
+        for(int i=0;i<newNumsIndex;i++){
+            nums[i]=newNums[i];
+        }
+
+        return k;
+    }
+}
