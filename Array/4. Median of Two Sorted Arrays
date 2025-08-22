@@ -1,0 +1,40 @@
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        int m = n1 + n2;
+        int indexSum = 0;
+        int[] sum = new int[m];
+        double median=0.0;
+
+
+        // Đưa 2 mảng nums1, nums2 vào mảng sum
+        for(int i=0;i<n1;i++){
+            sum[indexSum] = nums1[i];
+            indexSum++;
+        }
+        for(int i=0;i<n2;i++){
+            sum[indexSum]=nums2[i];
+            indexSum++;
+        }
+
+        // Sort mảng sum để dễ tìm trung vị
+        Arrays.sort(sum);
+
+        // Xác định vị trí left, right, mid để tìm trung vị
+        int left=0;
+        int right=m-1;
+        int mid = (left + right)/2;
+        int length = sum.length;
+
+        if(length%2!=0){    // Nếu mảng có số lượng phần từ là lẻ, thì trung vị là phần tử ở giữa
+            median = sum[mid];
+        }else{  // Nếu mảng có số lượng phần tử là chẵn, ví dụ mảng sum [1 2 3 4 5 6] lúc này mid=(0+5)/2=2 tức là ở vị trí sum[2]=3, thì trung vị phải tính trung bình cộng của sum[mid] và vị trí liền sau nó
+            median = (sum[mid] + sum[mid+1])/2.0;
+        }
+        
+
+        return median;
+
+    }
+}
